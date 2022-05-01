@@ -1,73 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:holiday/constants.dart';
 import 'package:holiday/widgets/bottomnav.dart';
 import 'package:holiday/widgets/floatingCenterButton.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
-const seed = Color(0xFF6750A4);
-
-const lightColorScheme = ColorScheme(
-  brightness: Brightness.light,
-  primary: Color(0xFF6750A4),
-  onPrimary: Color(0xFFFFFFFF),
-  primaryContainer: Color(0xFFEADDFF),
-  onPrimaryContainer: Color(0xFF21005D),
-  secondary: Color(0xFF625B71),
-  onSecondary: Color(0xFFFFFFFF),
-  secondaryContainer: Color(0xFFE8DEF8),
-  onSecondaryContainer: Color(0xFF1D192B),
-  tertiary: Color(0xFF7D5260),
-  onTertiary: Color(0xFFFFFFFF),
-  tertiaryContainer: Color(0xFFFFD8E4),
-  onTertiaryContainer: Color(0xFF31111D),
-  error: Color(0xFFB3261E),
-  errorContainer: Color(0xFFF9DEDC),
-  onError: Color(0xFFFFFFFF),
-  onErrorContainer: Color(0xFF410E0B),
-  background: Color(0xFFFFFBFE),
-  onBackground: Color(0xFF1C1B1F),
-  surface: Color(0xFFFFFBFE),
-  onSurface: Color(0xFF1C1B1F),
-  surfaceVariant: Color(0xFFE7E0EC),
-  onSurfaceVariant: Color(0xFF49454F),
-  outline: Color(0xFF79747E),
-  onInverseSurface: Color(0xFFF4EFF4),
-  inverseSurface: Color(0xFF313033),
-  inversePrimary: Color(0xFFD0BCFF),
-  shadow: Color(0xFF000000),
-);
-const darkColorScheme = ColorScheme(
-  brightness: Brightness.dark,
-  primary: Color(0xFFD0BCFF),
-  onPrimary: Color(0xFF381E72),
-  primaryContainer: Color(0xFF4F378B),
-  onPrimaryContainer: Color(0xFFEADDFF),
-  secondary: Color(0xFFCCC2DC),
-  onSecondary: Color(0xFF332D41),
-  secondaryContainer: Color(0xFF4A4458),
-  onSecondaryContainer: Color(0xFFE8DEF8),
-  tertiary: Color(0xFFEFB8C8),
-  onTertiary: Color(0xFF492532),
-  tertiaryContainer: Color(0xFF633B48),
-  onTertiaryContainer: Color(0xFFFFD8E4),
-  error: Color(0xFFF2B8B5),
-  errorContainer: Color(0xFF8C1D18),
-  onError: Color(0xFF601410),
-  onErrorContainer: Color(0xFFF9DEDC),
-  background: Color(0xFF1C1B1F),
-  onBackground: Color(0xFFE6E1E5),
-  surface: Color(0xFF1C1B1F),
-  onSurface: Color(0xFFE6E1E5),
-  surfaceVariant: Color(0xFF49454F),
-  onSurfaceVariant: Color(0xFFCAC4D0),
-  outline: Color(0xFF938F99),
-  onInverseSurface: Color(0xFF1C1B1F),
-  inverseSurface: Color(0xFFE6E1E5),
-  inversePrimary: Color(0xFF6750A4),
-  shadow: Color(0xFF000000),
-);
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -117,7 +55,7 @@ class HomePage extends StatefulWidget {
   );
   final labelStyle = const TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 15,
+    fontSize: 12,
     letterSpacing: 0.7,
   );
 
@@ -226,103 +164,6 @@ class _HomePageState extends State<HomePage> {
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return [
                   SliverAppBar(
-                    bottom: TabBar(
-                      // indicatorWeight: 0.0001,
-                      indicatorWeight: 20,
-                      indicator:
-                          CircleTabIndicator(color: Colors.red, radius: 0),
-                      controller: tabController,
-                      labelStyle: widget.labelStyle,
-                      tabs: [
-                        Tab(
-                          child: Container(
-                            // decoration: BoxDecoration(
-                            //   borderRadius: BorderRadius.circular(20),
-                            //   color: _tabIndex == 0
-                            //       ? Theme.of(context).primaryColorDark
-                            //       : Theme.of(context)
-                            //           .appBarTheme
-                            //           .backgroundColor,
-                            // ),
-                            padding: const EdgeInsets.fromLTRB(12, 5, 15, 5),
-                            child: Row(
-                              children: const [
-                                Icon(
-                                  Icons.flight,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "Flight",
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Tab(
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.hotel,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "Hotel",
-                              ),
-                            ],
-                          ),
-                        ),
-                        Tab(
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.restaurant_menu,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "Food",
-                              ),
-                            ],
-                          ),
-                        ),
-                        Tab(
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.directions_bike,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "Auto",
-                              ),
-                            ],
-                          ),
-                        ),
-                        Tab(
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.local_gas_station,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "Station",
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                      isScrollable: true,
-                    ),
                     title: Autocomplete(
                       fieldViewBuilder: (context, textEditingController,
                           focusNode, onFieldSubmitted) {
@@ -336,7 +177,8 @@ class _HomePageState extends State<HomePage> {
                           focusNode: focusNode,
                           style: widget.textStyle,
                           decoration: InputDecoration(
-                            fillColor: Theme.of(context).colorScheme.surfaceVariant,
+                            fillColor:
+                                Theme.of(context).colorScheme.surfaceVariant,
                             filled: true,
                             contentPadding:
                                 const EdgeInsets.fromLTRB(15, 0, 0, 0),
@@ -441,6 +283,98 @@ class _HomePageState extends State<HomePage> {
                     ),
                     floating: true,
                     pinned: true,
+                    bottom: PreferredSize(
+                      preferredSize: Size(double.maxFinite,53),
+                      child: Column(
+                        children: [
+                          TabBar(
+                            indicator: BoxDecoration(
+                              color: Theme.of(context).colorScheme.inversePrimary,
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            controller: tabController,
+                            labelStyle: widget.labelStyle,
+                            tabs: [
+                              Tab(
+                                // height: 10,
+
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.flight,size: 15),
+                                    Text("Flight",style: TextStyle(fontSize: 15),),
+                                  ],
+                                ),
+                              ),
+                              Tab(
+                                child: Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.hotel,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Hotel",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Tab(
+                                child: Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.restaurant_menu,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Food",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Tab(
+                                child: Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.directions_bike,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Auto",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Tab(
+                                child: Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.local_gas_station,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Station",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                            isScrollable: true,
+                          ),
+                          SizedBox(height: 5,),
+                        ],
+                      ),
+                    ),
                   ),
                 ];
               },
@@ -461,36 +395,4 @@ class _HomePageState extends State<HomePage> {
     FocusScope.of(context).unfocus();
   }
 
-  void _updateTab(value) {
-    setState(() {
-      _tabIndex = value;
-    });
-    print('index: $_tabIndex');
-  }
-}
-
-class CircleTabIndicator extends Decoration {
-  final BoxPainter _painter;
-
-  CircleTabIndicator({required Color color, required double radius})
-      : _painter = _CirclePainter(color, radius);
-
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) => _painter;
-}
-
-class _CirclePainter extends BoxPainter {
-  final Paint _paint;
-  final double radius;
-
-  _CirclePainter(Color color, this.radius)
-      : _paint = Paint()
-          ..color = color
-          ..isAntiAlias = true;
-
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration cfg) {
-    final Offset circleOffset = offset + Offset(500 / 2, 500 - radius - 5);
-    canvas.drawCircle(circleOffset, radius, _paint);
-  }
 }
