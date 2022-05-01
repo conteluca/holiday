@@ -32,6 +32,9 @@ const lightColorScheme = ColorScheme(
   inversePrimary: Color(0xFFD0BCFF),
   shadow: Color(0xFF000000),
 );
+
+
+
 const darkColorScheme = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xFFD0BCFF),

@@ -10,10 +10,12 @@ class FloatingCenterButton extends StatelessWidget {
     return FloatingActionButton(
       enableFeedback: true,
       onPressed: () {},
+      backgroundColor: Theme.of(context).colorScheme.onPrimary,
       tooltip: 'Increment',
-      child: const Icon(
+      child: Icon(
         Icons.add,
         size: 30,
+        color: Colors.white,
       ),
       elevation: 15,
     );

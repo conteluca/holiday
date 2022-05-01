@@ -10,24 +10,32 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.primary,
       clipBehavior: Clip.antiAlias,
-      notchMargin: 5.0,
-      shape: const CircularNotchedRectangle(),
+      // notchMargin: 5.0,
+      // shape: const CircularNotchedRectangle(),
       child: Row(
         children: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.menu,
-              )),
+            padding: EdgeInsets.all(12),
+            iconSize: 30,
+            onPressed: () {},
+            color: Theme.of(context).colorScheme.onPrimary,
+            icon: const Icon(
+              Icons.menu,
+            ),
+          ),
           const Spacer(),
           IconButton(
+            padding: EdgeInsets.all(12),
+            iconSize: 30,
+            color: Theme.of(context).colorScheme.onPrimary,
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const NotificationPage()),
+                  builder: (context) => const NotificationPage(),
+                ),
               );
             },
             icon: const Icon(
@@ -35,6 +43,9 @@ class BottomNavigation extends StatelessWidget {
             ),
           ),
           IconButton(
+            padding: EdgeInsets.all(12),
+            iconSize: 30,
+            color: Theme.of(context).colorScheme.onPrimary,
             onPressed: () {
               Navigator.push(
                 context,

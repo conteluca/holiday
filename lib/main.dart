@@ -1,7 +1,14 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holiday/constants.dart';
 import 'package:holiday/widgets/bottomnav.dart';
+import 'package:holiday/widgets/customTab.dart';
 import 'package:holiday/widgets/floatingCenterButton.dart';
+import 'package:holiday/widgets/itemCard.dart';
+import 'package:holiday/widgets/searchInput.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,13 +23,219 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: lightColorScheme,
+        colorScheme: darkColorScheme,
+        useMaterial3: true,
       ),
       darkTheme: ThemeData(
         colorScheme: darkColorScheme,
+        useMaterial3: true,
+        brightness: Brightness.dark,
       ),
-      home: HomePage(),
+      home: const App(),
       debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class App extends StatefulWidget {
+  const App({Key? key}) : super(key: key);
+  final borderRadius = const BorderRadius.horizontal(
+    left: Radius.circular(40),
+    right: Radius.circular(40),
+  );
+  final tabs = const [
+    CustomTab(
+      title: "Make Up",
+      icon: Icons.face_retouching_natural,
+    ),
+    CustomTab(
+      title: "Tanning",
+      icon: Icons.lightbulb,
+    ),
+    CustomTab(
+      title: "SPA",
+      icon: Icons.bathtub,
+    ),
+    CustomTab(
+      title: "Massage",
+      icon: Icons.baby_changing_station_rounded,
+    ),
+    CustomTab(
+      title: "Manicure",
+      icon: Icons.back_hand_rounded,
+    ),
+    CustomTab(
+      title: "Pedicure",
+      icon: Icons.airline_seat_legroom_extra_rounded,
+    ),
+    CustomTab(
+      title: "Body",
+      icon: Icons.accessibility,
+    ),
+  ];
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  String _searchText = '';
+
+  void _updateSearchText(String value) {
+    setState(() {
+      _searchText = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: widget.tabs.length,
+      child: Builder(builder: (context) {
+        TabController tabController = DefaultTabController.of(context)!;
+        tabController.addListener(() {
+          FocusScope.of(context).unfocus();
+        });
+        return Scaffold(
+          bottomNavigationBar: const BottomNavigation(),
+          floatingActionButton: const FloatingCenterButton(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          body: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) => [
+              SliverAppBar(
+                toolbarHeight: 150,
+                title: Container(
+                  height: 150,
+                  // color: Colors.red,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "What would",
+                                  style: GoogleFonts.notoSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 32,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary,
+                                  ),
+                                ),
+                                Text(
+                                  "you like to do?",
+                                  style: GoogleFonts.notoSans(
+                                    fontStyle: FontStyle.normal,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 32,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary,
+                                  ),
+                                ),
+                                                             ],
+                            ),
+                            IconButton(
+                                onPressed: () {}, icon: Icon(Icons.person))
+                          ],
+                        ),
+                        AutocompleteSearchBar(
+                          searchText: _searchText,
+                          updateSearchText: _updateSearchText,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                bottom: TabBar(
+                  padding: const EdgeInsets.fromLTRB(10, 6, 10, 5),
+                  isScrollable: true,
+                  unselectedLabelColor:
+                      Theme.of(context).colorScheme.primaryContainer,
+                  indicator: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    borderRadius: widget.borderRadius,
+                  ),
+                  tabs: widget.tabs,
+                ),
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                floating: true,
+                snap: true,
+                pinned: true,
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+                  child: SizedBox(
+                    height: 250.0,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: const EdgeInsets.all(8),
+                          width: 220.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondaryContainer,
+                          ),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(20)),
+                              child: Image.network(
+                                  'https://www.leoschool.it/wp-content/themes/yootheme/cache/est_trus65966218_L-1-32df91d4.jpeg'),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+            body: TabBarView(
+              children: [
+                ListView.separated(
+                  itemBuilder: (context, index) => const ItemCard(),
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(),
+                  itemCount: 100,
+                ),
+                const Center(
+                  child: Text("B"),
+                ),
+                const Center(
+                  child: Text("B"),
+                ),
+                const Center(
+                  child: Text("B"),
+                ),
+                const Center(
+                  child: Text("B"),
+                ),
+                const Center(
+                  child: Text("B"),
+                ),
+                const Center(
+                  child: Text("B"),
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 }
@@ -69,12 +282,12 @@ class HomePage extends StatefulWidget {
               ListTile(
                 leading: const Icon(Icons.arrow_drop_down_circle),
                 title: Text("Card $index"),
-                subtitle: Text(
+                subtitle: const Text(
                   'Secondary Text',
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
                 child: Text(
                   'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
                 ),
@@ -237,8 +450,8 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.vertical(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.vertical(
                                     bottom: Radius.circular(25)),
                                 // color: Theme.of(context).colorScheme.primary,
                               ),
@@ -283,17 +496,19 @@ class _HomePageState extends State<HomePage> {
                     ),
                     floating: true,
                     pinned: true,
+                    snap: true,
+                    toolbarHeight: 65,
                     bottom: PreferredSize(
-                      preferredSize: Size(double.maxFinite,53),
+                      preferredSize: const Size(double.maxFinite, 53),
                       child: Column(
                         children: [
                           TabBar(
                             indicator: BoxDecoration(
-                              color: Theme.of(context).colorScheme.inversePrimary,
+                              color:
+                                  Theme.of(context).colorScheme.inversePrimary,
                               shape: BoxShape.rectangle,
                               borderRadius: BorderRadius.circular(30),
                             ),
-
                             indicatorSize: TabBarIndicatorSize.tab,
                             controller: tabController,
                             labelStyle: widget.labelStyle,
@@ -302,9 +517,12 @@ class _HomePageState extends State<HomePage> {
                                 // height: 10,
 
                                 child: Row(
-                                  children: [
-                                    Icon(Icons.flight,size: 15),
-                                    Text("Flight",style: TextStyle(fontSize: 15),),
+                                  children: const [
+                                    Icon(Icons.flight, size: 15),
+                                    Text(
+                                      "Flight",
+                                      style: TextStyle(fontSize: 15),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -371,7 +589,9 @@ class _HomePageState extends State<HomePage> {
                             ],
                             isScrollable: true,
                           ),
-                          SizedBox(height: 5,),
+                          const SizedBox(
+                            height: 5,
+                          ),
                         ],
                       ),
                     ),
@@ -394,5 +614,4 @@ class _HomePageState extends State<HomePage> {
   void _unFocusSearch() {
     FocusScope.of(context).unfocus();
   }
-
 }
